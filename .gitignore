@@ -1,0 +1,9 @@
+/bin/
+/.settings/
+/.worksheet/
+**/target/
+.bsp
+.idea
+.cache-main
+.project
+*~
