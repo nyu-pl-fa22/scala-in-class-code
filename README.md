@@ -1,13 +1,13 @@
 ### Installing the Scala Tool Chain
 
-I will provide support and instructions for OSX and Linux (Ubuntu).  
+We will provide support and instructions for OSX and Linux (Ubuntu).
 
 If you have a system running Windows, we suggest to follow the instructions [below](#installing-ubuntu-on-windows-windows-only) to install Ubuntu using Windows Subsystem for Linux. Then follow the Ubuntu instructions for the installation of the tool chain. Alternatively, you can also install the Scala tool chain directly under Windows. Though, we will not be able to provide support for this setup.
 
 
 #### Installing Ubuntu on Windows [Windows only]
 
-If you are using Windows 10 or newer, I suggest to proceed as follows. Install Ubuntu via the Windows Subsystem for Linux. Use e.g. the instructions in the following two tutorials to do this:
+If you are using Windows 10 or newer, proceed as follows. Install Ubuntu via the Windows Subsystem for Linux. Use e.g. the instructions in the following two tutorials to do this:
 
 * [Install WSL - Windows Subsystem for Linux](https://solarianprogrammer.com/2017/04/15/install-wsl-windows-subsystem-for-linux/)
 
