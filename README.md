@@ -294,8 +294,7 @@ If the defined function is not recursive, as is the case for
 `max`, the result type can be omitted because it is
 automatically inferred by the compiler. However, it is often helpful
 to provide the result type anyway to document the signature of the
-function. Moreover, if the function body only consists of a single
-expression or statement, the curly braces can be omitted. Thus, we
+function. Moreover, the curly braces can be omitted. Thus, we
 could alternatively write the function max like this:
 
 ```scala
@@ -320,11 +319,10 @@ def circ(r: Double): Double
 
 You can also nest value and function definitions:
 ```scala
-scala> def area(r: Double) = {
+scala> def area(r: Double) = 
          val pi = 3.14159
          def square(x: Double) = x * x
          pi * square(r)
-       }
 def area(r: Double): Double
 ```
 
@@ -349,11 +347,12 @@ val a = 5
   val b = 4
   // b and a in scope
 
-  def f(x: Int) = {
+  def f(x: Int) = 
     // f, x, b, and a in scope
     a * x + b 
-  }
+    
   // f, b, and a in scope
+  f(b)
 }
 // only a in scope
 ```
