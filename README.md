@@ -89,9 +89,10 @@ sbt is an open source build tool for Scala projects, similar to Maven or Ant. Mo
   sudo apt-get update
   sudo apt-get install sbt
   ```
+  If `curl` is not already installed on your system, then first run `sudo apt-get install curl`.
 * Confirm success by running the command from terminal: 
     ```sbt    ```
-    (sbt should start. Use `Ctrl+c` to quit or type `exit`.)
+    (sbt should start. Use `Ctrl+d` to quit or type `exit`.)
 
 ** More detailed instructions can be found [here](http://www.scala-sbt.org/release/tutorial/Installing-sbt-on-Linux.html).
 
