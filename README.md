@@ -7,30 +7,14 @@ If you have a system running Windows, we suggest to follow the instructions [bel
 
 #### Installing Ubuntu on Windows [Windows only]
 
-If you are using Windows 10 or newer, proceed as follows. Install Ubuntu via the Windows Subsystem for Linux. Use e.g. the instructions in the following two tutorials to do this:
+If you are using Windows 10 or newer, proceed as follows. Install Ubuntu via the Windows Subsystem for Linux (WSL) following the instructions in these tutorials:
 
-* [Install WSL - Windows Subsystem for Linux](https://solarianprogrammer.com/2017/04/15/install-wsl-windows-subsystem-for-linux/)
+* [Install Linux on Windows with WSL](https://docs.microsoft.com/en-us/windows/wsl/install)
 
-* [Using the Windows Subsystem for Linux with Xfce 4](https://solarianprogrammer.com/2017/04/16/windows-susbsystem-for-linux-xfce-4/)
+* [Run Linux GUI apps on the Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/tutorials/gui-apps)
 
-Then follow the installation instructions for Ubuntu below and install everything within your Ubuntu subsystem. In particular, install Intelij Idea within the Ubuntu subsystem rather than as a Window app.
-
-If you notice blurry fonts when you open applications from within
-Ubuntu WSL that use the Xming X11 server then do the following steps:
-
-1. Open the directory C:\Program Files (x86)\Xming
-
-2. Right-click the file Xming.exe and choose "Properties" from the context menu
-
-3. Select the tab "Compatibility" and then click "Change high DPI settings"
-
-4. Then under "High DPI scaling override" click the checkbox "Override
-   high DPI scaling behavior" and select "Application" in the drop
-   down menu labeled "Scaling performed by:".
-
-5. Then close both pop-up windows by clicking "OK"
-
-After this, the fonts should be crisp the next time you start the X11 server. If you already have it running in the background, you'll have to manually kill the process before you restart it. Rebooting will also do the trick.
+Follow the second tutorial above to install Google Chrome or some other web browser of your choice within your WSL Ubuntu subsystem. 
+Then follow the installation instructions for Ubuntu below and install everything within your Ubuntu subsystem. In particular, install Intelij Idea within the Ubuntu subsystem rather than as a Window app. To do this, start the web browser from the command line of your Ubuntu subsystem and then Download Intelij as outlined below. Downloaded files will be stored in the directory `~/Downloads`.
 
 If you are using an older Windows version or as an alternative to the above, you can install a Ubuntu virtual machine using VirtualBox and follow the instructions for Ubuntu. VirtualBox is free. Instructions can be found [here]( http://www.psychocats.net/ubuntu/virtualbox).
 
@@ -161,13 +145,13 @@ After you type an expression in the REPL, such as `3 + 4`,
 and hit enter:
 
 ```scala
-scala> 3 + 4
+scala> 1 + 2
 ```
 
 The interpreter will print:
 
 ```scala
-res0: Int = 7
+val res0: Int = 3
 ```
 
 This line includes:
@@ -176,7 +160,7 @@ This line includes:
   to the value resulting from evaluating the expression,
 * a colon `:`, followed by the type `Int` of the expression,
 * an equals sign `=`,
-* the value `7` resulting from evaluating the expression.
+* the value `3` resulting from evaluating the expression.
 
 The type `Int` names the class `Int` in the
 package `scala`. Packages in Scala partition the global
@@ -192,14 +176,14 @@ in the REPL but not in a worksheet):
 
 ```scala
 scala> res0 * res0
-res1: Int = 9 
+val res1: Int = 9 
 ```
 
 Java's ternary conditional operator `? :` has an equivalent in Scala,
 which looks as follows:
 ```scala
-scala> if res1 > 10 then res0 - 5 else res0 + 5
-res2: Int = -2
+scala> if res1 < 10 then res0 - 5 else res0 + 5
+val res2: Int = -2
 ```
 
 In addition to the `? :` operator, Java also has if-then-else
@@ -211,16 +195,32 @@ would normally use if-then-else statements in Java.
 ```scala
 scala> if res1 > 2 then println("Large!") 
        else println("Not so large!")
-res3: Unit = ()
+Large!
 ```
-In this case, the if-then-else expression evaluates to the value
-`()`, which is of type `Unit`. This type indicates
-that the sole purpose of evaluating the expression is the side effect
-of the evaluation (here, printing a message on standard output). In
-other words, in Scala, statements are expressions of type
-`Unit`. Thus, the type `Unit` is similar to the
-type `void` in Java, C, and C++ (which however, has no values). The value
-`()` is the only value of type `Unit`. 
+
+In this case, the if-then-else expression evaluates to the value `()`,
+which is of type `Unit`. This type indicates that the sole purpose of
+evaluating the expression is the side effect of the evaluation (here,
+printing a message on standard output). In other words, in Scala,
+statements are expressions of type `Unit`. Thus, the type `Unit` is
+similar to the type `void` in Java, C, and C++ (which however, has no
+values). The value `()` is the only value of type `Unit`. 
+
+Note that if an expression evaluates to `()`, then the result value
+and type are not printed by the REPL. In the example above, it only
+prints `Large!`, which is the side effect of evaluating the
+expression.
+
+The following example shows that the expression indeed returns `()`.
+
+```scala
+scala> val u = if res1 > 2 then println("Large!") else println("Not so large!")
+Large!
+
+scala> u == ()
+val res3: Boolean = true
+```
+
 
 #### Names
 
@@ -238,15 +238,19 @@ case you have to provide the type yourself. This can be done by
 annotating the declared name with its type:
 ```scala
 scala> val x: Int = 3
-x: Int = 3 
+val x: Int = 3 
 ```
 A `val` is similar to a `final` variable in
 Java or a `const` variable in JavaScript. That is, you cannot reassign it another value:
 ```scala
 scala> x = 5
-<console>>:8: error: reassignment to val
-       x = 5
-         ^
+-- [E052] Type Error: ----------------------------------------------------------
+1 |x = 5
+  |^^^^^
+  |Reassignment to val x
+  |
+  | longer explanation available when compiling with `-explain`
+1 error found
 ```
 Scala also supports mutable variables, which can be
 reassigned. These are declared with the `var` keyword
@@ -257,14 +261,18 @@ scala> y = 3
 y: Int = 3
 ```
 The type of a variable is the type inferred from its initialization
-expression. This type is fixed. Attempting to reassign a variable to a value of incompatible type results in a type error:
+expression. This type is fixed. Attempting to reassign a variable to a
+value of incompatible type results in a type error:
 ```scala
 scala> y = "Hello"
-<console>:8: error: type mismatch;
- found   : String("Hello")
- required: Int
-       y = "Hello"
-           ^
+-- [E007] Type Mismatch Error: -------------------------------------------------
+1 |y = "Hello"
+  |    ^^^^^^^
+  |    Found:    ("Hello" : String)
+  |    Required: Int
+  |
+  | longer explanation available when compiling with `-explain`
+1 error found
 ```
 
 #### Functions
@@ -377,10 +385,10 @@ the same block, even if that name has been bound in an outer scope:
 
 ```scala
 {
-  val x = 2;
+  val x = 2
   {
     println(x) // Forward reference to `x` declared in this  block. Does not compile
-    val x = 3;
+    val x = 3
     x + x
   }
 }
