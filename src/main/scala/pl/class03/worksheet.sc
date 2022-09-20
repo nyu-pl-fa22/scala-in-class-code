@@ -1,8 +1,32 @@
-val x = 3 + 4
+var x = 3
+var y = 4
 
-if x > 10 then x - 5 else x + 5
+x = if x > 5 && y < 3 then
+  x + 1
+else
+  x - 1
 
-def max(x: Int, y: Int): Int = {
-  if x > y then x
-  else y
-}
+val c = 'X'
+
+x = x + 1
+
+x = c match
+  case 'X' => 10
+  case 'V' => 5
+  case 'I' => 1
+  case _ => -1
+  
+while x < 10 do
+  y = y + y
+  x = x + 1
+  
+def max(x: Int, y: Int): Int = 
+  if x < y then y else x
+  
+max(2, 3)
+
+  
+  
+  
+  
+  
