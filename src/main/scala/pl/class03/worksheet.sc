@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 var x = 3
 var y = 4
 
@@ -30,3 +31,31 @@ max(2, 3)
   
   
   
+=======
+var x = 0
+
+def set_x(v: Int): Unit =
+  x = v
+
+
+def foo(s: Int => Unit, y: Int): () => Unit = 
+  var x = 0
+  
+  def print_x(): Unit = println(x)
+
+  s(y)
+  print_x()
+  print_x
+
+
+val p = foo(set_x, 1)
+set_x(2)
+p()
+
+def foo(): String = {
+  val f = {x: Int => return "Hello"; 3}
+  f(3); "World"
+}
+
+foo()
+>>>>>>> Stashed changes
