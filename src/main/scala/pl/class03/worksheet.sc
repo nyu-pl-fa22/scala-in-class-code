@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 var x = 3
 var y = 4
 
@@ -27,16 +26,10 @@ def max(x: Int, y: Int): Int =
 max(2, 3)
 
   
-  
-  
-  
-  
-=======
 var x = 0
 
 def set_x(v: Int): Unit =
   x = v
-
 
 def foo(s: Int => Unit, y: Int): () => Unit = 
   var x = 0
@@ -58,4 +51,3 @@ def foo(): String = {
 }
 
 foo()
->>>>>>> Stashed changes
